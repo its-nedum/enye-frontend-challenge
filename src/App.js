@@ -10,7 +10,7 @@ const App = () => {
   const [profile, setProfile] = useState([]);
   const [total, setTotal] = useState();
   const [pageNumber, setPageNumber] = useState(1)
-  const [filtered, setFiltered] = useState(profile)
+  const [toBeFiltered, setToBeFiltered] = useState(profile)
 
   console.log(profile);
   const getRecords = () => {
@@ -18,7 +18,7 @@ const App = () => {
       .then(response => {
         const {size, records:{ profiles }} = response.data;
         setProfile(profiles);
-        setFiltered(profiles)
+        setToBeFiltered(profiles)
         setTotal(size)
       }).catch(error => {
         console.log(error);
@@ -36,33 +36,29 @@ const App = () => {
     // }
   }
 
-  const filterByGender = (gender) => {
-    switch(gender) {
+  const filterBy = (params) => {
+    switch(params) {
       case 'Male':
-        setProfile(filtered.filter(person => person.Gender === 'Male'));
+        setProfile(toBeFiltered.filter(person => person.Gender === 'Male'));
         break;
       case 'Female':
-        setProfile(filtered.filter(person => person.Gender === 'Female'));
+        setProfile(toBeFiltered.filter(person => person.Gender === 'Female'));
         break;
-      default:
-        setProfile(filtered.filter(person => person.Gender === 'Prefer to skip'));
-    } 
-  }
-
-  const filterByPaymentMethod = (method) => {
-    switch(method) {
+      case 'Prefer to skip':
+        setProfile(toBeFiltered.filter(person => person.Gender === 'Prefer to skip'));
+        break;
       case 'money order':
-        setProfile(filtered.filter(person => person.PaymentMethod === 'money order'));
-      break;
+        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'money order'));
+        break;
       case 'check':
-        setProfile(filtered.filter(person => person.PaymentMethod === 'check'));
-      break;
+        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'check'));
+        break;
       case 'paypal':
-        setProfile(filtered.filter(person => person.PaymentMethod === 'paypal'));
-      break;
+        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'paypal'));
+        break;
       default: 
-        setProfile(filtered.filter(person => person.PaymentMethod === 'cc'));
-    }
+        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'cc'));
+    } 
   }
 
     const indexOfLastProfile = pageNumber * 20;
@@ -82,7 +78,7 @@ const App = () => {
         <SearchBar searchRecord={searchRecord}/>
       </div>
       <div className="row">
-        <Filter filterByGender={filterByGender} filterByPaymentMethod={filterByPaymentMethod}/>
+        <Filter filterBy={filterBy} />
       </div>  
       <div className="row">
         <Profile profile={currentProfile}/>
