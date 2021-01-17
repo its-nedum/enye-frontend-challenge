@@ -53,13 +53,17 @@ const App = () => {
         <SearchBar />
       </div>
       <div className="row">
-        <Filter />
+        <Filter filterByGender={filterByGender}/>
       </div>  
       <div className="row">
         <Profile profile={currentProfile}/>
       </div> 
       <div className="row">
-        <Pagination paginate={paginate} total={total} pageSize={20}/>
+        <div className="col-md-4"></div>
+        <div className="col-12 col-md-4">
+          <Pagination paginate={paginate} total={total} pageSize={20}/>
+        </div>
+        <div className="col-md-4"></div>
       </div>    
     </div>
   );

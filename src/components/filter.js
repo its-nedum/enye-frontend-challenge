@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Filter = () => {
+const Filter = ({filterByGender}) => {
     return (
         <div className="container">
             <div className="row">
@@ -9,13 +9,13 @@ const Filter = () => {
                 <small>Filter by gender</small>
                 <form className="controls-radio">
                     <label className="radio-btn">
-                        <input type="radio" value="Male" name="gender"/> Male
+                        <input type="radio" value="Male" name="gender" onChange={e => filterByGender(e.target.value)}/> Male
                     </label>
                     <label className="radio-btn">
-                        <input type="radio" value="Female" name="gender"/> Female
+                        <input type="radio" value="Female" name="gender" onChange={e => filterByGender(e.target.value)}/> Female
                     </label>
                     <label className="radio-btn">
-                        <input type="radio" value="Prefer to skip" name="gender"/> Others
+                        <input type="radio" value="Prefer to skip" name="gender" onChange={e => filterByGender(e.target.value)}/> Others
                     </label>  
                 </form>
                 </div>
