@@ -9,8 +9,8 @@ import axios from 'axios';
 const App = () => {
   const [profile, setProfile] = useState([]);
   const [total, setTotal] = useState();
-  // const [pageSize, setPageSize] = useState(20)
   const [pageNumber, setPageNumber] = useState(1)
+  const [filtered, setFiltered] = useState(profile)
 
   console.log(profile);
   const getRecords = () => {
@@ -18,6 +18,7 @@ const App = () => {
       .then(response => {
         const {size, records:{ profiles }} = response.data;
         setProfile(profiles);
+        setFiltered(profiles)
         setTotal(size)
       }).catch(error => {
         console.log(error);
@@ -26,17 +27,42 @@ const App = () => {
 
   const paginate = (pageNumber) => setPageNumber(pageNumber)
 
+  const searchRecord = (text) => {
+    // console.log(filtered)
+    // if(text === ""){
+    //   // display all records
+    // }else{
+    // setProfile(filtered.fin)
+    // }
+  }
+
   const filterByGender = (gender) => {
     switch(gender) {
       case 'Male':
-        setProfile(profile.filter(person => person.Gender === 'Male'));
+        setProfile(filtered.filter(person => person.Gender === 'Male'));
         break;
       case 'Female':
-        setProfile(profile.filter(person => person.Gender === 'Female'));
+        setProfile(filtered.filter(person => person.Gender === 'Female'));
         break;
       default:
-        setProfile(profile.filter(person => person.Gender === 'Prefer to skip'));
+        setProfile(filtered.filter(person => person.Gender === 'Prefer to skip'));
     } 
+  }
+
+  const filterByPaymentMethod = (method) => {
+    switch(method) {
+      case 'money order':
+        setProfile(filtered.filter(person => person.PaymentMethod === 'money order'));
+      break;
+      case 'check':
+        setProfile(filtered.filter(person => person.PaymentMethod === 'check'));
+      break;
+      case 'paypal':
+        setProfile(filtered.filter(person => person.PaymentMethod === 'paypal'));
+      break;
+      default: 
+        setProfile(filtered.filter(person => person.PaymentMethod === 'cc'));
+    }
   }
 
     const indexOfLastProfile = pageNumber * 20;
@@ -50,10 +76,13 @@ const App = () => {
   return (
     <div className="container-fluid App-bg">
       <div className="row">
-        <SearchBar />
+        <h5 className="align-center">Enye User Records</h5>
       </div>
       <div className="row">
-        <Filter filterByGender={filterByGender}/>
+        <SearchBar searchRecord={searchRecord}/>
+      </div>
+      <div className="row">
+        <Filter filterByGender={filterByGender} filterByPaymentMethod={filterByPaymentMethod}/>
       </div>  
       <div className="row">
         <Profile profile={currentProfile}/>

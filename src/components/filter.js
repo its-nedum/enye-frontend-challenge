@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Filter = ({filterByGender}) => {
+const Filter = ({filterByGender, filterByPaymentMethod}) => {
     return (
         <div className="container">
             <div className="row">
@@ -23,16 +23,16 @@ const Filter = ({filterByGender}) => {
                 <small>Filter by payment method</small>
                 <form className="controls-radio">
                     <label className="radio-btn">
-                        <input type="radio" value="Male" name="payment"/> Visa
+                        <input type="radio" value="paypal" name="payment" onChange={e => filterByPaymentMethod(e.target.value)}/> Paypal
                     </label>
                     <label className="radio-btn">
-                        <input type="radio" value="Female" name="payment"/> Paypal
-                    </label>
-                    <label className="radio-btn">
-                        <input type="radio" value="Prefer to skip" name="payment"/> Check
+                        <input type="radio" value="check" name="payment" onChange={e => filterByPaymentMethod(e.target.value)}/> Check
                     </label>  
                     <label className="radio-btn">
-                        <input type="radio" value="Prefer to skip" name="payment"/> Money order
+                        <input type="radio" value="cc" name="payment" onChange={e => filterByPaymentMethod(e.target.value)}/> Cc
+                    </label>
+                    <label className="radio-btn">
+                        <input type="radio" value="money order" name="payment" onChange={e => filterByPaymentMethod(e.target.value)}/> Money order
                     </label> 
                 </form>
                 </div>
