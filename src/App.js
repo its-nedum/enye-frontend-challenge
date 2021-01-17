@@ -12,7 +12,7 @@ const App = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const [toBeFiltered, setToBeFiltered] = useState(profile)
 
-  console.log(profile);
+  // fetch the profile records from the enye API
   const getRecords = () => {
       axios.get(`https://api.enye.tech/v1/challenge/records`)
       .then(response => {
@@ -25,8 +25,10 @@ const App = () => {
       });  
   }
 
+  // paginate the records into multiple pages display 20 record at a time
   const paginate = (pageNumber) => setPageNumber(pageNumber)
 
+  // search for a specific record
   const searchRecord = (text) => {
     // console.log(filtered)
     // if(text === ""){
@@ -35,36 +37,53 @@ const App = () => {
     // setProfile(filtered.fin)
     // }
   }
-
+  
+  // filter the records by gender and payment methods 
   const filterBy = (params) => {
     switch(params) {
       case 'Male':
-        setProfile(toBeFiltered.filter(person => person.Gender === 'Male'));
+        const males = toBeFiltered.filter(person => person.Gender === 'Male');
+        setProfile(males);
+        setTotal(males.length);
         break;
       case 'Female':
-        setProfile(toBeFiltered.filter(person => person.Gender === 'Female'));
+        const females = toBeFiltered.filter(person => person.Gender === 'Female')
+        setProfile(females);
+        setTotal(females.length);
         break;
       case 'Prefer to skip':
-        setProfile(toBeFiltered.filter(person => person.Gender === 'Prefer to skip'));
+        const prefer = toBeFiltered.filter(person => person.Gender === 'Prefer to skip')
+        setProfile(prefer);
+        setTotal(prefer.length);
         break;
       case 'money order':
-        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'money order'));
+        const money = toBeFiltered.filter(person => person.PaymentMethod === 'money order')
+        setProfile(money);
+        setTotal(money.length);
         break;
       case 'check':
-        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'check'));
+        const checks = toBeFiltered.filter(person => person.PaymentMethod === 'check')
+        setProfile(checks);
+        setTotal(checks.length);
         break;
       case 'paypal':
-        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'paypal'));
+        const paypals = toBeFiltered.filter(person => person.PaymentMethod === 'paypal')
+        setProfile(paypals);
+        setTotal(paypals.length);
         break;
       default: 
-        setProfile(toBeFiltered.filter(person => person.PaymentMethod === 'cc'));
+        const cc = toBeFiltered.filter(person => person.PaymentMethod === 'cc');
+        setProfile(cc);
+        setTotal(cc.length);
     } 
   }
 
-    const indexOfLastProfile = pageNumber * 20;
-    const indexOfFirstProfile = indexOfLastProfile - 20;
-    const currentProfile = profile.slice(indexOfFirstProfile, indexOfLastProfile);
+  // pagination logic
+  const indexOfLastProfile = pageNumber * 20;
+  const indexOfFirstProfile = indexOfLastProfile - 20;
+  const currentProfile = profile.slice(indexOfFirstProfile, indexOfLastProfile);
 
+  // calls the getRecords method on page load 
   useEffect(() => {
     getRecords();
   }, [])
