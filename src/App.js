@@ -30,14 +30,16 @@ const App = () => {
 
   // search for a specific record
   const searchRecord = (text) => {
-    // console.log(filtered)
-    // if(text === ""){
-    //   // display all records
-    // }else{
-    // setProfile(filtered.fin)
-    // }
+    if(text === ""){
+      setProfile(toBeFiltered);
+      setTotal(toBeFiltered.length)
+    }else{
+      const results = toBeFiltered.filter(person => person.LastName.toLowerCase() === text.toLowerCase() || person.FirstName.toLowerCase() === text.toLowerCase())
+      setProfile(results);
+      setTotal(results.length);
+    }
   }
-  
+
   // filter the records by gender and payment methods 
   const filterBy = (params) => {
     switch(params) {
@@ -91,7 +93,9 @@ const App = () => {
   return (
     <div className="container-fluid App-bg">
       <div className="row">
-        <h5 className="align-center">Enye User Records</h5>
+        <div className="col-12 mt-5">
+        <h2 className="text-center" style={{fontFamily:'Arial', color:'#ffff'}}>User Profiles</h2>
+        </div>
       </div>
       <div className="row">
         <SearchBar searchRecord={searchRecord}/>

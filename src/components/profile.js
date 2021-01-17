@@ -12,7 +12,7 @@ const link = {
 
 const Profile = ({profile}) => {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mt-2">
             <div className="row">
                 {profile && profile.length !== 0 ?
                     profile.map((item, index)=> {
