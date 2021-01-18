@@ -5,12 +5,14 @@ import Filter from './components/filter'
 import SearchBar from './components/searchBar';
 import Pagination from './components/pagination';
 import axios from 'axios';
+import Spinner from './components/spinner';
 
 const App = () => {
   const [profile, setProfile] = useState([]);
   const [total, setTotal] = useState();
-  const [pageNumber, setPageNumber] = useState(1)
-  const [toBeFiltered, setToBeFiltered] = useState(profile)
+  const [pageNumber, setPageNumber] = useState(1);
+  const [toBeFiltered, setToBeFiltered] = useState(profile);
+  const [loading, setLoading] = useState(true);
 
   // fetch the profile records from the enye API
   const getRecords = () => {
@@ -18,8 +20,9 @@ const App = () => {
       .then(response => {
         const {size, records:{ profiles }} = response.data;
         setProfile(profiles);
-        setToBeFiltered(profiles)
-        setTotal(size)
+        setToBeFiltered(profiles);
+        setTotal(size);
+        setLoading(false);
       }).catch(error => {
         console.log(error);
       });  
@@ -104,14 +107,15 @@ const App = () => {
         <Filter filterBy={filterBy} />
       </div>  
       <div className="row">
-        <Profile profile={currentProfile}/>
+        <div className="col-12">
+          {!loading ? <Profile profile={currentProfile} /> : <Spinner/> }
+        </div>
       </div> 
       <div className="row">
-        <div className="col-md-4"></div>
+        <div className="col-md-5"></div>
         <div className="col-12 col-md-4">
-          <Pagination paginate={paginate} total={total} pageSize={20}/>
+          {profile && profile.length !== 0 ? <Pagination paginate={paginate} total={total} pageSize={20}/> : null}
         </div>
-        <div className="col-md-4"></div>
       </div>    
     </div>
   );

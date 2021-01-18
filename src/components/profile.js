@@ -1,4 +1,5 @@
 import React from 'react'
+import Spinner from './spinner'
 
 const paragraph = {
     margin: '0px'
@@ -59,7 +60,7 @@ const Profile = ({profile}) => {
                             </div>
                         )
                     })
-                 : <div className="alert alert-primary" role="alert">Loading please wait...</div>}   
+                 : <div className="col-12"><Spinner /></div>}   
             </div>
         </div>
     )
