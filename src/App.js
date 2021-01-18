@@ -37,7 +37,7 @@ const App = () => {
       setProfile(toBeFiltered);
       setTotal(toBeFiltered.length)
     }else{
-      const results = toBeFiltered.filter(person => person.LastName.toLowerCase() === text.toLowerCase() || person.FirstName.toLowerCase() === text.toLowerCase())
+      const results = toBeFiltered.filter(person => person.LastName.toLowerCase().includes(text.toLowerCase()) || person.FirstName.toLowerCase().includes(text.toLowerCase()))
       setProfile(results);
       setTotal(results.length);
     }
