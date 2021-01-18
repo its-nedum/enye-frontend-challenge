@@ -4,8 +4,8 @@
   
   .App-bg {
     background-color: #282c34;
-    /* background-color: #3d7bf8; */
     min-height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
   
 /**********************************
@@ -28,5 +28,14 @@ filter.js styles
 
 
 /**********************************
-
+profile.js styles
 **********************************/
+.profile-text {
+  margin: 0px;
+}
+.pills-link {
+  padding-top: 0rem;
+  padding-right: 0.3rem;
+  padding-bottom: 0.1rem;
+  padding-left: 0.3rem;
+}

@@ -76,10 +76,14 @@ const App = () => {
         setProfile(paypals);
         setTotal(paypals.length);
         break;
-      default: 
+      case 'cc': 
         const cc = toBeFiltered.filter(person => person.PaymentMethod === 'cc');
         setProfile(cc);
         setTotal(cc.length);
+        break;
+      default:
+        setProfile(toBeFiltered);
+        setTotal(toBeFiltered.length);
     } 
   }
 
