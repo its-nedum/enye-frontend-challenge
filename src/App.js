@@ -101,7 +101,7 @@ const App = () => {
     <div className="container-fluid App-bg">
       <div className="row">
         <div className="col-12 mt-5">
-        <h2 className="text-center" style={{fontFamily:'Arial', color:'#ffff'}}>User Profiles</h2>
+        <h2 className="text-center" style={{fontFamily:'Arial', color:'#ffff'}}>User Records</h2>
         </div>
       </div>
       <div className="row">
